@@ -54,18 +54,6 @@ with file paths are left alone.
 - Skip it for one prompt by adding `--raw` to the prompt.
 - Turn it off with the environment variable `PROMPTENGINE_NUDGE=off`.
 
-## Typical use
-
-```
-> /promptengine:profile                        # once per repo
-> create an api for invoice disputes and show it in the ui
-  … Claude reads the profile, finds the closest route and page, then asks:
-  1. Require a reason? Recommended: yes, 10–500 chars.
-  2. Who may dispute? Recommended: the invoice's customer (same guard as GET /invoices/:id).
-> defaults are fine
-  … spec with files and "done when", then build, then test results per criterion
-```
-
 ## Install
 
 Inside Claude Code:
@@ -75,11 +63,74 @@ Inside Claude Code:
 /plugin install promptengine@promptengine
 ```
 
-The repository must be readable by whoever installs it. To try a local checkout without installing:
+Restart Claude Code afterwards. The repository must be readable by whoever installs it. To try a local
+checkout without installing:
 
 ```bash
 claude --plugin-dir ./plugins/promptengine
 ```
+
+## Usage
+
+### 1. Once per project: let it learn your codebase
+
+```
+/promptengine:profile
+```
+
+Claude reads your project and writes a short "Project profile" section into `CLAUDE.md`: your stack,
+commands, where things live, your API and UI patterns, and your design tokens. Check it and fix anything
+wrong. Commit it so your team shares it. Run it again when the stack changes.
+
+### 2. Day to day: type requests the way you do now
+
+```
+create an api for invoice disputes and show it in the ui
+```
+
+1. **It notices the request is vague.** It doesn't block anything; it tells Claude to work out the
+   details before building.
+2. **Claude looks things up instead of guessing.** It reads the project profile, any doc you mentioned,
+   and the closest similar endpoint or page in your code.
+3. **It asks once, only what it can't find out**, with a recommended answer for each:
+   ```
+   1. Require a reason? Recommended: yes, 10–500 chars.
+   2. Who can dispute? Recommended: the invoice's customer.
+   ```
+   Reply `defaults are fine`, or change only what you want.
+4. **It shows a short spec**: which files change, a "done when" checklist, and what's out of scope.
+   For big changes it waits for your OK before building.
+5. **It builds, then checks each "done when" item** with your tests, type check or screenshots, and
+   tells you what it couldn't check.
+
+Small, clear requests (like "rename getUser to fetchUser in api/users.ts") skip all of this and just
+get done.
+
+**Tips**
+
+- **Working from a doc:** include the file path or paste the doc, e.g.
+  `based on docs/disputes-prd.md, build the dispute flow`.
+- **UI polish:** `improve the css of the settings page`. Claude looks at the page and suggests 3 to 5
+  specific fixes for you to pick from.
+- **Running refine directly:** `/promptengine:refine <your request>`.
+- **Skipping it for one prompt:** add `--raw` to the prompt.
+- **Turning off the automatic check:** set `PROMPTENGINE_NUDGE=off` before starting Claude Code.
+
+### 3. Big work: a greenfield app or a new initiative
+
+| Step | Command | What happens |
+| --- | --- | --- |
+| Structure it | `/promptengine:intake`, then paste your notes | Claude sorts them into a brief at `initiatives/<name>/brief.md` and asks about the gaps |
+| Check it | `/promptengine:review` | A score, a verdict, and what's vague or missing, with suggested fixes |
+| Plan it | `/promptengine:plan` | A project plan, requirements doc, technical design, task breakdown or readiness review, saved next to the brief |
+
+You'll usually only need `intake`, because it runs the review for you and offers the plan at the end.
+
+### If the commands don't show up
+
+Restart Claude Code after installing, then type `/promptengine` and the five commands should appear. If
+they still don't, run `/plugin`: check that `promptengine` is listed and enabled, and run the update
+there to get the latest version.
 
 ## Layout
 
