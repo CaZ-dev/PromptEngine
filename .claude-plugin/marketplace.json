@@ -1,0 +1,19 @@
+{
+  "name": "promptengine",
+  "owner": {
+    "name": "CaZ-dev"
+  },
+  "metadata": {
+    "description": "Plugins that help you give Claude structured, unambiguous input."
+  },
+  "plugins": [
+    {
+      "name": "initiative-planner",
+      "source": "./plugins/initiative-planner",
+      "description": "Turn raw notes about a new initiative into a structured brief, catch vague or missing input, and plan from it.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": ["planning", "requirements", "prd", "project-plan", "brief"]
+    }
+  ]
+}

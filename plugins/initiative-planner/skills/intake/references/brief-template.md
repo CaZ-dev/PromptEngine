@@ -7,7 +7,7 @@ How to use this template
   beats "make disputes faster".
 - One idea per bullet. Claude reads lists far more reliably than paragraphs of mixed statements.
 - Unknowns are fine. Put them under "Assumptions and open questions" instead of guessing.
-- Check it with the Brief Builder (tool/brief-builder.html) or run /initiative-intake in Claude Code.
+- Check it with /initiative-planner:review before planning.
 Delete this comment before sharing.
 -->
 

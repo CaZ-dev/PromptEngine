@@ -1,47 +1,69 @@
 # PromptEngine
 
-Tools for handing a new initiative to Claude as a structured brief instead of a stream of statements.
+A Claude Code plugin marketplace for giving Claude structured, unambiguous input.
 
-When the input is unstructured (goals mixed with solutions, "make it faster", no scope edges, no
-dates), Claude fills the gaps with its own guesses and the plan drifts from what you meant. PromptEngine
-gives you one input format and two ways to check it before Claude starts planning.
+## initiative-planner
 
-## What's here
+When you start a new initiative, the input you give Claude is usually a stream of statements: goals
+mixed with solutions, "make it faster", no scope edges, no dates. Claude fills the gaps with its own
+guesses and the plan drifts from what you meant. This plugin puts a structured brief between your
+notes and the plan, and tells you what is unclear before planning starts.
 
-| Path | What it is | Use it when |
+| Skill | Command | What it does |
 | --- | --- | --- |
-| `templates/initiative-brief.md` | The input format: 14 sections, with guidance in each | You want to write the brief in a doc or editor |
-| `tool/brief-builder.html` | A form that scores the brief as you type, flags vague or missing input, and generates a Claude-ready prompt | You want feedback while you write, then paste into claude.ai |
-| `.claude/skills/initiative-intake/` | A Claude Code skill: paste raw notes, Claude maps them to the template, lists the gaps, asks you up to 5 questions, then plans | You'd rather dump notes and be interviewed |
+| intake | `/initiative-planner:intake` | Paste raw notes. Claude sorts them into the brief format, saves `initiatives/<name>/brief.md`, shows what is missing or vague, and asks you up to 5 questions per round. |
+| review | `/initiative-planner:review` | Checks any brief: clarity score, verdict, and findings such as goals without numbers, vague words ("faster", "user-friendly", "ASAP"), empty scope edges, contradictions, undefined abbreviations, each with a suggested rewrite. |
+| plan | `/initiative-planner:plan` | Produces a project plan, PRD, technical design, task breakdown or readiness review from the brief. It stays inside scope and constraints, labels assumptions, and ends with the decisions you need to make. |
 
-## The format
+Claude also picks these skills up on its own when you describe a new initiative, ask whether a brief is
+clear enough, or ask for a plan from one.
 
-The brief answers four questions, in this order:
+### The brief format
 
-1. **Why**: title, one-line summary, problem and why now, goals with measurable targets.
+Fourteen sections in four parts (full template with guidance:
+[`brief-template.md`](plugins/initiative-planner/skills/intake/references/brief-template.md)):
+
+1. **Why**: title, one-line summary, problem and why now, goals with a baseline and target.
 2. **Who and what**: users and stakeholders, in scope, out of scope, requirements (MUST / SHOULD / COULD).
 3. **Reality**: constraints, existing context, timeline, risks and dependencies, assumptions and open questions.
-4. **The ask**: which deliverable you want (project plan, PRD, technical design, task breakdown, readiness review), its format and audience, and whether Claude should ask questions first.
+4. **The ask**: which deliverable you want, for whom, in what format.
 
-## What the review flags
+The review skill runs [`lint_brief.py`](plugins/initiative-planner/skills/review/scripts/lint_brief.py)
+(Python 3, standard library only) for the mechanical checks and applies
+[judgement rules](plugins/initiative-planner/skills/review/references/clarity-rules.md) on top. You can
+also run the script yourself:
 
-- **Blocking**: a required section is empty, or something is both in and out of scope.
-- **Unclear**: goals without numbers; vague words such as *better, faster, easy, user-friendly, scalable, ASAP, etc* (each comes with a suggestion for what to write instead); empty out-of-scope, constraints or timeline; a timeline with no date.
-- **Suggestions**: requirements without priorities, lists written as paragraphs, undefined abbreviations, TBD / TODO left in the body.
+```bash
+python3 plugins/initiative-planner/skills/review/scripts/lint_brief.py initiatives/my-initiative/brief.md
+```
 
-The generated prompt wraps each section in XML tags, lists any gaps you chose not to fix under
-`<known_gaps>`, and tells Claude to stay in scope, label its assumptions, and ask clarifying
-questions before it writes the deliverable.
+## Install
 
-## Workflows
+From GitHub, inside Claude Code:
 
-**Browser**: open `tool/brief-builder.html` (double-click it, no install needed). It opens with an
-example brief that has deliberate gaps so you can see the review at work. Click *Clear all* to start
-your own. Your draft is saved in that browser. *Import Markdown* accepts a brief written with the
-template, and the *Markdown brief* tab exports it back.
+```
+/plugin marketplace add CaZ-dev/PromptEngine
+/plugin install initiative-planner@promptengine
+```
 
-**Claude Code**: in this repository, run `/initiative-intake` and paste your notes. The brief is saved
-to `initiatives/<slug>/brief.md` and the deliverable next to it.
+The repository must be readable by whoever installs it; make it public to publish more widely.
 
-**Any chat**: copy `templates/initiative-brief.md`, fill it in, and paste it with a line such as
-"Review this brief for gaps and ask me up to 5 questions before you plan."
+To try a local checkout without installing:
+
+```bash
+claude --plugin-dir ./plugins/initiative-planner
+```
+
+## Layout
+
+```
+.claude-plugin/marketplace.json          # marketplace "promptengine"
+plugins/initiative-planner/
+  .claude-plugin/plugin.json
+  skills/
+    intake/   SKILL.md, references/brief-template.md
+    review/   SKILL.md, references/clarity-rules.md, scripts/lint_brief.py
+    plan/     SKILL.md, references/deliverables.md
+```
+
+Add more plugins under `plugins/` and list them in `marketplace.json`.
