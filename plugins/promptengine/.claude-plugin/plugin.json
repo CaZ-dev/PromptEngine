@@ -1,0 +1,10 @@
+{
+  "name": "promptengine",
+  "version": "0.2.0",
+  "description": "Turn rough requests (\"create an API for this and wire it into the UI\", \"improve the CSS\") into grounded task specs before Claude builds anything, asking only what the codebase cannot answer. Also turns new initiatives into reviewed briefs and plans.",
+  "author": {
+    "name": "CaZ-dev"
+  },
+  "repository": "https://github.com/CaZ-dev/PromptEngine",
+  "keywords": ["prompting", "requirements", "spec", "planning", "prd", "clarification"]
+}

@@ -8,12 +8,12 @@
   },
   "plugins": [
     {
-      "name": "initiative-planner",
-      "source": "./plugins/initiative-planner",
-      "description": "Turn raw notes about a new initiative into a structured brief, catch vague or missing input, and plan from it.",
-      "version": "0.1.0",
+      "name": "promptengine",
+      "source": "./plugins/promptengine",
+      "description": "Turn rough requests into grounded task specs before Claude builds anything, and turn new initiatives into reviewed briefs and plans.",
+      "version": "0.2.0",
       "category": "productivity",
-      "keywords": ["planning", "requirements", "prd", "project-plan", "brief"]
+      "keywords": ["prompting", "requirements", "spec", "planning", "prd", "clarification"]
     }
   ]
 }
