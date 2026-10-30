@@ -95,3 +95,7 @@ plugins/promptengine/
     review/   SKILL.md, references/clarity-rules.md, scripts/lint_brief.py
     plan/     SKILL.md, references/deliverables.md
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).

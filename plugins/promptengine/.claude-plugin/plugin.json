@@ -6,5 +6,6 @@
     "name": "CaZ-dev"
   },
   "repository": "https://github.com/CaZ-dev/PromptEngine",
+  "license": "MIT",
   "keywords": ["prompting", "requirements", "spec", "planning", "prd", "clarification"]
 }
