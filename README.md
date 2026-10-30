@@ -88,7 +88,7 @@ Then start Codex, run `/hooks`, and approve the PromptEngine hook. Codex doesn't
 until you have reviewed them. The skills work without the hook; you just have to call `refine` yourself.
 To get updates later, run `codex plugin marketplace upgrade promptengine`.
 
-## Usage
+## Usage in Claude Code
 
 ### 1. Once per project: let it learn your codebase
 
@@ -144,24 +144,79 @@ get done.
 
 You'll usually only need `intake`, because it runs the review for you and offers the plan at the end.
 
-### Using it in Codex
+## Usage in Codex
 
-Everything above works the same in Codex, with these differences:
+It works the same way as in Claude Code. The main difference is that you call skills with `$` instead
+of `/`.
 
-- **Calling a skill:** type `$` and pick it (for example `$promptengine:refine`), or run `/skills`.
-  Codex also picks the right skill on its own when your request matches it.
-- **Project profile:** written to `AGENTS.md`, the file Codex loads every session. If your team uses
-  both Claude Code and Codex, the profile goes in `AGENTS.md`, and `CLAUDE.md` gets a line `@AGENTS.md`
-  so both tools read one copy.
-- **The vague-prompt hook:** only runs after you approve it in `/hooks`.
+### 1. Install it and turn on the vague-prompt check (once per computer)
 
-### If the commands don't show up
+Install it as shown under [Install › Codex](#codex), then check:
+
+```bash
+codex plugin list        # should show: promptengine@promptengine  installed, enabled
+```
+
+Start `codex`, type `/hooks`, and approve the PromptEngine hook. Codex doesn't run a plugin's hook until
+you've reviewed it. If you skip this step, everything still works, but you'll need to call
+`$promptengine:refine` yourself on vague requests.
+
+### 2. Once per project: let it learn your codebase
+
+Inside Codex, in your project folder:
+
+```
+$promptengine:profile
+```
+
+It writes a short "Project profile" section into `AGENTS.md`: your stack, commands, where things live,
+API and UI patterns, and design tokens. Codex loads that file in every session, so later tasks need
+fewer searches and questions. Check it, fix anything wrong, and commit it. If your team also uses Claude
+Code, it adds an `@AGENTS.md` line to `CLAUDE.md` so both tools read the same copy.
+
+### 3. Day to day: type requests the way you do now
+
+```
+create an api for invoice disputes and show it in the ui
+```
+
+1. **The hook notices the request is vague** and tells Codex to work out the details first.
+2. **Codex looks things up:** the profile, any doc you mention, and the closest similar endpoint or page
+   in your code.
+3. **It asks you once, with recommended answers.** Reply `defaults are fine`, or change only what you want.
+4. **It shows a short spec:** the files to change, a "done when" checklist, and what's out of scope.
+5. **It builds, then checks each "done when" item** with your tests or type check.
+
+Small, clear requests skip all of this.
+
+### 4. Calling skills yourself
+
+| Want to | Type |
+| --- | --- |
+| Refine a request explicitly | `$promptengine:refine improve the css of the settings page` |
+| Start a new app or initiative | `$promptengine:intake`, then paste your notes |
+| Check a brief | `$promptengine:review initiatives/<name>/brief.md` |
+| Plan from a brief | `$promptengine:plan` |
+| See all skills | `/skills`, or type `$promptengine` |
+
+Codex also picks the right skill on its own when your request matches one.
+
+**Tips**
+
+- **Working from a doc:** give the path, e.g. `based on docs/prd.md, build the dispute flow`.
+- **Skipping the check once:** add `--raw` to the prompt.
+- **Turning the check off:** start Codex with `PROMPTENGINE_NUDGE=off codex`.
+- **Getting updates:** run `codex plugin marketplace upgrade promptengine`.
+
+## If the commands don't show up
 
 - **Claude Code:** restart after installing, then type `/promptengine` and the five commands should
   appear. If they still don't, run `/plugin`: check that `promptengine` is listed and enabled, and run
   the update there to get the latest version.
-- **Codex:** run `codex plugin list` and check that `promptengine@promptengine` shows as
-  "installed, enabled". Then start a new session and type `$promptengine` to see the skills.
+- **Codex, skills don't show after `$`:** run `codex plugin list` and check that
+  `promptengine@promptengine` shows as "installed, enabled", then start a new Codex session.
+- **Codex, vague prompts aren't picked up:** run `/hooks` and check that the PromptEngine hook is
+  approved and enabled.
 
 ## Layout
 
