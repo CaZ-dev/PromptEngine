@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""UserPromptSubmit hook: point Claude at the refine skill when a build request looks underspecified.
+"""UserPromptSubmit hook: point the agent at the refine skill when a build request looks underspecified.
 
 Reads the hook payload on stdin and, when the prompt asks for a change but gives little to go on,
-prints a short note that Claude Code adds to the context. It never blocks the prompt.
+prints a short note that the agent (Claude Code or Codex) adds to its context. It never blocks the prompt.
 
 Skipped when:
 - the prompt is a slash command, a question, or a short conversational reply;

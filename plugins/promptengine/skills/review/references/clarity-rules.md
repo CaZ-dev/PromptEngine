@@ -8,7 +8,7 @@ the rules marked *(judgement)* need you to read the brief.
 | Severity | Meaning | Effect |
 | --- | --- | --- |
 | Blocking | Planning would rest on a guess | Do not plan until fixed, unless the user says to proceed |
-| Unclear | Claude would fill it with its own judgement | Ask about it if it would change the plan |
+| Unclear | The agent would fill it with its own judgement | Ask about it if it would change the plan |
 | Suggestion | Cleaner input, better output | Mention it; do not hold up planning |
 
 Verdict: any blocking issue means **Not ready**. Otherwise score 80+ is **Ready**, below is **Needs work**.
@@ -17,7 +17,7 @@ Score starts at 100 and loses 12 per blocking, 5 per unclear and 2 per suggestio
 ## Blocking
 
 - A required section is empty: Title, One-line summary, Problem and why now, Goals and success metrics,
-  Users and stakeholders, In scope, Requirements, What I want from Claude.
+  Users and stakeholders, In scope, Requirements, What I want from the agent.
 - The deliverable is not named (project plan, PRD, technical design, task breakdown, readiness review).
 - The same item is both in scope and out of scope.
 - *(judgement)* Two statements contradict each other, e.g. a 4-week deadline and a requirement to

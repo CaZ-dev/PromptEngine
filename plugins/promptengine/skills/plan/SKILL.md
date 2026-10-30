@@ -17,7 +17,7 @@ with them as assumptions. Do not silently plan past a blocking gap.
 
 ## 2. Pick the deliverable
 
-Use the deliverable named under "What I want from Claude". If none is named, ask: project plan, PRD,
+Use the deliverable named under "What I want from the agent". If none is named, ask: project plan, PRD,
 technical design, task breakdown or readiness review. Follow its outline in
 `references/deliverables.md`, plus any format, audience or length the brief asks for.
 

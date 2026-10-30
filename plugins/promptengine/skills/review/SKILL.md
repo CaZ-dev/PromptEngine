@@ -5,7 +5,7 @@ description: Review an Initiative Brief (or any written project brief, PRD draft
 
 # Brief review
 
-Check a brief for anything that would make Claude guess while planning, and tell the user exactly
+Check a brief for anything that would make the agent guess while planning, and tell the user exactly
 what to change.
 
 ## 1. Get the brief

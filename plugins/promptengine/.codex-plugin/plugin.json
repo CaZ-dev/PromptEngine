@@ -1,0 +1,30 @@
+{
+  "name": "promptengine",
+  "version": "0.3.0",
+  "description": "Turn rough requests (\"create an API for this and wire it into the UI\", \"improve the CSS\") into grounded task specs before the agent builds anything, asking only what the codebase cannot answer. Also turns new initiatives into reviewed briefs and plans.",
+  "author": {
+    "name": "CaZ-dev"
+  },
+  "repository": "https://github.com/CaZ-dev/PromptEngine",
+  "license": "MIT",
+  "keywords": ["prompting", "requirements", "spec", "planning", "prd", "clarification"],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "PromptEngine",
+    "shortDescription": "Turn rough requests into grounded task specs before building",
+    "longDescription": "PromptEngine catches vague build requests, answers what it can from your codebase and docs, asks one round of questions with recommended defaults, confirms a short spec with acceptance criteria, then builds and verifies. For new initiatives it turns raw notes into a reviewed brief and a plan.",
+    "developerName": "CaZ-dev",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "websiteURL": "https://github.com/CaZ-dev/PromptEngine",
+    "defaultPrompt": [
+      "Learn this repo's stack and conventions",
+      "Create an API for this and show it in the UI",
+      "Turn my notes for a new project into a brief"
+    ],
+    "brandColor": "#2742A6",
+    "logo": "./assets/icon.png",
+    "composerIcon": "./assets/icon.png"
+  }
+}

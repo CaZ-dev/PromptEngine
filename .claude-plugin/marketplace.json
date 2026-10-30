@@ -11,9 +11,16 @@
       "name": "promptengine",
       "source": "./plugins/promptengine",
       "description": "Turn rough requests into grounded task specs before Claude builds anything, and turn new initiatives into reviewed briefs and plans.",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "category": "productivity",
-      "keywords": ["prompting", "requirements", "spec", "planning", "prd", "clarification"]
+      "keywords": [
+        "prompting",
+        "requirements",
+        "spec",
+        "planning",
+        "prd",
+        "clarification"
+      ]
     }
   ]
 }

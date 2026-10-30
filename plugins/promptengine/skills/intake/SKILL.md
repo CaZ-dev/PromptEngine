@@ -16,7 +16,7 @@ point to) into its sections:
 
 Title · One-line summary · Problem and why now · Goals and success metrics · Users and stakeholders ·
 In scope · Out of scope · Requirements · Constraints · Existing context · Timeline and milestones ·
-Risks and dependencies · Assumptions and open questions · What I want from Claude
+Risks and dependencies · Assumptions and open questions · What I want from the agent
 
 While mapping:
 - Keep the user's wording. Never invent numbers, dates, names or decisions.
@@ -40,10 +40,10 @@ Show the user, briefly:
 2. The verdict and the findings, grouped by severity, one line each.
 3. Up to 5 questions, blocking gaps first, then the unclear points that would change the plan.
    Make each answerable in a line. Offer concrete options or an example of a good answer
-   ("Which target fits: decision within 3 business days, or 5?"). Use the AskUserQuestion tool
-   when it is available and a question has a small set of answers.
+   ("Which target fits: decision within 3 business days, or 5?"). Use your environment's
+   structured question tool (AskUserQuestion in Claude Code) when a question has a small set of answers.
 
-Always ask which deliverable they want if "What I want from Claude" is empty.
+Always ask which deliverable they want if "What I want from the agent" is empty.
 
 ## 4. Iterate
 

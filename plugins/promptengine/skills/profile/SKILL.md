@@ -1,11 +1,12 @@
 ---
 name: profile
-description: Build or refresh a compact "Project profile" section in the repository's CLAUDE.md (stack, commands, folder layout, API and UI conventions, design tokens, testing) so later requests need less exploration and fewer questions. Use when the user sets up PromptEngine in a repo, asks Claude to "learn" or "remember" the project, or when the refine skill finds no profile in a repo the user works in often.
+description: Build or refresh a compact "Project profile" section in the repository's agent instructions file (CLAUDE.md or AGENTS.md): stack, commands, folder layout, API and UI conventions, design tokens, testing, so later requests need less exploration and fewer questions. Use when the user sets up PromptEngine in a repo, asks the agent to "learn" or "remember" the project, or when the refine skill finds no profile in a repo the user works in often.
 ---
 
 # Project profile
 
-Claude Code loads `CLAUDE.md` into every session. A short, accurate profile there answers most of the
+Coding agents load an instructions file into every session: `CLAUDE.md` in Claude Code, `AGENTS.md` in
+Codex. A short, accurate profile there answers most of the
 questions the refine skill would otherwise spend searches or user questions on. Build it once, then
 refresh it when the stack changes.
 
@@ -28,12 +29,19 @@ Never copy secrets or the values of environment variables into the profile.
 
 ## Write it
 
-Add or replace a section in the root `CLAUDE.md` (create the file if it does not exist), keeping
-everything else in that file unchanged:
+Pick the file:
+
+- Claude Code only: root `CLAUDE.md`.
+- Codex only: root `AGENTS.md`.
+- Both, or the repo already has both files: put the profile in `AGENTS.md`, and make sure `CLAUDE.md`
+  contains the line `@AGENTS.md` so Claude Code imports it. One copy, no drift.
+
+Add or replace the section (create the file if it does not exist), keeping everything else in that
+file unchanged:
 
 ```markdown
 ## Project profile
-<!-- Maintained by the promptengine profile skill. Refresh with /promptengine:profile. -->
+<!-- Maintained by the promptengine profile skill. Refresh by running the profile skill again. -->
 
 **Stack:** …
 **Commands:** install `…` · dev `…` · test `…` · lint `…` · typecheck `…` · build `…`

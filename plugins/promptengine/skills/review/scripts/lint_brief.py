@@ -30,13 +30,13 @@ SECTIONS = [
     ("timeline", "Timeline and milestones", False, True, 4, ["date"]),
     ("risks", "Risks and dependencies", False, False, 0, []),
     ("assumptions", "Assumptions and open questions", False, False, 0, []),
-    ("ask", "What I want from Claude", True, False, 4, []),
+    ("ask", "What I want from the agent", True, False, 4, []),
 ]
 
 EMPTY_REASON = {
-    "out_scope": "Without explicit exclusions Claude plans for everything that seems related.",
-    "constraints": "Without limits, Claude plans for an unconstrained team, budget and stack.",
-    "timeline": "Without dates, Claude cannot sequence or size the work.",
+    "out_scope": "Without explicit exclusions the agent plans for everything that seems related.",
+    "constraints": "Without limits, the agent plans for an unconstrained team, budget and stack.",
+    "timeline": "Without dates, the agent cannot sequence or size the work.",
 }
 
 VAGUE = {
@@ -71,7 +71,7 @@ VAGUE = {
     "various": "List them.",
     "several": "How many?",
     "many": "How many?",
-    "etc": "Finish the list; Claude will guess what 'etc' covers.",
+    "etc": "Finish the list; the agent will guess what 'etc' covers.",
     "stuff": "Name the actual items.",
     "things": "Name the actual items.",
     "asap": "Give a date.",
@@ -103,6 +103,7 @@ WEIGHT = {"blocking": 12, "unclear": 5, "suggestion": 2}
 def parse(md):
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)
     by_heading = {h.lower(): k for k, h, *_ in SECTIONS}
+    by_heading["what i want from claude"] = "ask"  # heading used by earlier versions of the template
     found = {k: "" for k, *_ in SECTIONS}
     present = set()
     for part in re.split(r"^##\s+", md, flags=re.M)[1:]:
@@ -171,7 +172,7 @@ def lint(md):
             missing = [l for l in lines if not re.search(r"\b(MUST|SHOULD|COULD|WON'?T)\b", l)]
             if missing:
                 add("suggestion", key, f"{len(missing)} requirement(s) have no MUST / SHOULD / COULD.",
-                    "Without priorities Claude treats every requirement as mandatory.")
+                    "Without priorities the agent treats every requirement as mandatory.")
         if "date" in checks and not DATE_RE.search(text):
             add("unclear", key, "No date or duration found.",
                 "Add at least one date, quarter or duration, e.g. 'by 15 Jan 2027' or 'within 6 weeks'.")

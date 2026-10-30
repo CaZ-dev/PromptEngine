@@ -5,9 +5,9 @@ How to use this template
 - Fill every section marked (required). Leave optional sections empty rather than writing "N/A".
 - Prefer numbers, names and dates over adjectives. "Cut dispute resolution from 9 days to 3"
   beats "make disputes faster".
-- One idea per bullet. Claude reads lists far more reliably than paragraphs of mixed statements.
+- One idea per bullet. AI agents read lists far more reliably than paragraphs of mixed statements.
 - Unknowns are fine. Put them under "Assumptions and open questions" instead of guessing.
-- Check it with /promptengine:review before planning.
+- Check it with the promptengine review skill before planning.
 Delete this comment before sharing.
 -->
 
@@ -39,7 +39,7 @@ Delete this comment before sharing.
 -
 
 ## Out of scope
-<!-- What it will NOT do, even if it seems related. Without this list, Claude assumes everything is in scope. -->
+<!-- What it will NOT do, even if it seems related. Without this list, the agent assumes everything is in scope. -->
 -
 
 ## Requirements
@@ -69,8 +69,8 @@ Delete this comment before sharing.
 <!-- Things you believe but have not verified, and questions you cannot answer yet. Mark each as ASSUMPTION or QUESTION. -->
 
 
-## What I want from Claude
+## What I want from the agent
 <!-- The deliverable (project plan / PRD / technical design / task breakdown / risk review),
-     the format (table, bullets, length), the audience, and whether Claude should ask clarifying
+     the format (table, bullets, length), the audience, and whether the agent should ask clarifying
      questions before starting. -->
 

@@ -32,7 +32,7 @@ The checklist lists what must be known before building. That list drives everyth
 
 Work through the checklist and answer each item from, in order:
 
-1. **Project profile.** If `CLAUDE.md` has a "Project profile" section (written by the profile skill), read it
+1. **Project profile.** If `CLAUDE.md` or `AGENTS.md` has a "Project profile" section (written by the profile skill), read it
    first. It holds the stack, commands and conventions, so you do not need to rediscover them.
 2. **Docs the user referenced.** Read them in full. Pull out every concrete requirement, with a short
    quote or section reference, so the spec traces back to the doc.
@@ -56,7 +56,7 @@ public API contracts, money, anything hard to undo). Rules:
 - Each question names the recommended answer, so the user can reply "defaults are fine".
 - Offer concrete options from what you found ("Use the existing `ApiClient` in `src/lib/api.ts`, or a
   new fetch wrapper?"), not open-ended prompts.
-- Use the AskUserQuestion tool when it is available.
+- Use your environment's structured question tool when it has one (AskUserQuestion in Claude Code).
 - Never ask what you could look up.
 
 If nothing is Unknown and no Default is risky, do not ask. Go to step 4.
