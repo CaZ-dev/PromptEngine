@@ -38,3 +38,10 @@ technical design, task breakdown or readiness review. Follow its outline in
 Write the result next to the brief, e.g. `initiatives/<slug>/plan.md`, `prd.md`, `design.md`,
 `tasks.md` or `readiness.md`, and give the user the path with a short summary: the shape of the plan,
 the biggest risk, and the decisions waiting on them.
+
+## 5. Offer the next step
+
+For a task breakdown or project plan, offer how to build it:
+- one task at a time with the refine skill, or
+- a phase or epic at a time with the team skill, which runs parallel agents on pieces that can be built
+  at the same time, at a higher token cost. Point out which epics split well for that.

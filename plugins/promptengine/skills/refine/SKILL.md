@@ -22,6 +22,10 @@ named element). Say "Clear enough to do directly" and proceed. Refining a clear 
 Hand off to the intake skill instead when the request is a new product or greenfield app, or spans
 several teams or weeks. Those need a brief and a plan, not a task spec.
 
+If the spec you arrive at in step 4 splits into three or more pieces that could be built at the same
+time (for example data, API, UI and tests), mention that the team skill could build it with parallel
+agents, at a higher token cost. Offer it once; do not switch without the user's OK.
+
 ## 1. Classify the request
 
 Pick the closest type from `references/task-types.md` (API + UI feature, UI or design improvement,

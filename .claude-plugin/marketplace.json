@@ -10,8 +10,8 @@
     {
       "name": "promptengine",
       "source": "./plugins/promptengine",
-      "description": "Turn rough requests into grounded task specs before Claude builds anything, and turn new initiatives into reviewed briefs and plans.",
-      "version": "0.3.0",
+      "description": "Turn rough requests into grounded task specs before the agent builds, run larger changes with a team of parallel agents, and turn new initiatives into reviewed briefs and plans.",
+      "version": "0.4.0",
       "category": "productivity",
       "keywords": [
         "prompting",
@@ -19,7 +19,8 @@
         "spec",
         "planning",
         "prd",
-        "clarification"
+        "clarification",
+        "multi-agent"
       ]
     }
   ]

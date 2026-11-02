@@ -1,7 +1,7 @@
 {
   "name": "promptengine",
-  "version": "0.3.0",
-  "description": "Turn rough requests (\"create an API for this and wire it into the UI\", \"improve the CSS\") into grounded task specs before Claude builds anything, asking only what the codebase cannot answer. Also turns new initiatives into reviewed briefs and plans.",
+  "version": "0.4.0",
+  "description": "Turn rough requests (\"create an API for this and wire it into the UI\", \"improve the CSS\") into grounded task specs before Claude builds anything, asking only what the codebase cannot answer. Also turns new initiatives into reviewed briefs and plans. For larger changes it can run a team of parallel agents that build pieces against agreed contracts, then merge and test them.",
   "author": {
     "name": "CaZ-dev"
   },
@@ -13,7 +13,8 @@
     "spec",
     "planning",
     "prd",
-    "clarification"
+    "clarification",
+    "multi-agent"
   ],
   "icon": "./assets/icon.png"
 }

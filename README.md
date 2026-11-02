@@ -35,6 +35,24 @@ refine
 Clear, small requests skip straight to building. Greenfield apps and multi-week work go to the
 initiative skills instead.
 
+### Team mode, for bigger changes
+
+```
+request, brief or plan
+  │
+  ▼
+lead       writes .promptengine/work/<feature>/: README (goal, contracts), one .md per piece, board.md
+  │        you review and reply "go"
+  ▼
+workers    one agent per piece, in parallel, each in its own git worktree;
+  │        they build to the contracts and post questions and decisions to board.md
+  ▼
+integrator merges the pieces in dependency order and resolves conflicts against the contracts
+  ▼
+tester     runs the full suite, checks every "done when", writes test-report.md;
+           failures go back to the owning piece (at most two fix rounds)
+```
+
 ## Skills
 
 | Skill | Command | Use it for |
@@ -44,6 +62,7 @@ initiative skills instead.
 | intake | `/promptengine:intake` | A new initiative or greenfield app: raw notes → structured brief → gap questions. |
 | review | `/promptengine:review` | Clarity check of a brief: score, verdict, vague wording, goals without numbers, contradictions. |
 | plan | `/promptengine:plan` | From a brief: project plan, PRD, technical design, task breakdown or readiness review. |
+| team | `/promptengine:team <request>` | Bigger changes that split into 3+ parallel pieces: breaks the work into markdown files with fixed contracts, runs one agent per piece, then merges and tests. |
 
 ### The hook
 
@@ -144,6 +163,29 @@ get done.
 
 You'll usually only need `intake`, because it runs the review for you and offers the plan at the end.
 
+### 4. Bigger changes: run a team of agents
+
+```
+/promptengine:team build the user invites feature: db, api, admin ui and e2e tests
+```
+
+1. **It breaks the work down** into `.promptengine/work/<feature>/`: a README with the goal and the
+   **contracts** (exact API shapes, data model, component props), one markdown file per piece listing the
+   files it may change and its "done when", and a shared `board.md`.
+2. **You review and reply `go`.** Edit the files first if you want to change anything.
+3. **Worker agents build the pieces in parallel,** each in its own git worktree so they can't overwrite
+   each other. They build to the contracts, and post questions and decisions to the board. If one gets
+   stuck, the lead decides, or asks you once for several questions at a time.
+4. **An integrator merges the pieces,** and a **tester** runs the full suite, checks every "done when"
+   and writes `test-report.md`. Failures go back to the piece responsible, for at most two rounds.
+5. **You get a report:** what was built, the test verdict, and anything not verified. Nothing is pushed
+   unless you ask.
+
+Use it when the work splits into **three or more pieces that can be built at the same time**. It's
+faster, but it costs roughly as many times the tokens as there are agents. For small or step-by-step
+changes it will tell you so and use `refine` instead. `refine` and `plan` offer team mode when a task
+looks like a good fit.
+
 ## Usage in Codex
 
 It works the same way as in Claude Code. The main difference is that you call skills with `$` instead
@@ -197,9 +239,14 @@ Small, clear requests skip all of this.
 | Start a new app or initiative | `$promptengine:intake`, then paste your notes |
 | Check a brief | `$promptengine:review initiatives/<name>/brief.md` |
 | Plan from a brief | `$promptengine:plan` |
+| Build with a team of agents | `$promptengine:team <request>` |
 | See all skills | `/skills`, or type `$promptengine` |
 
 Codex also picks the right skill on its own when your request matches one.
+
+**Team mode in Codex:** `$promptengine:team` works the same way. Codex starts the workers with its own
+agent tools and gives each one the role instructions from the plugin's `agents/` folder, because Codex
+plugins can't define agents themselves.
 
 **Tips**
 
@@ -227,6 +274,7 @@ plugins/promptengine/
   .claude-plugin/plugin.json               # Claude Code manifest
   .codex-plugin/plugin.json                # Codex manifest
   assets/icon.png
+  agents/   team-worker.md, team-integrator.md, team-tester.md
   hooks/hooks.json, hooks/scripts/nudge_vague_prompt.py
   skills/
     refine/   SKILL.md, references/task-types.md, references/spec-template.md
@@ -234,6 +282,7 @@ plugins/promptengine/
     intake/   SKILL.md, references/brief-template.md
     review/   SKILL.md, references/clarity-rules.md, scripts/lint_brief.py
     plan/     SKILL.md, references/deliverables.md
+    team/     SKILL.md, references/work-files.md
 ```
 
 ## License
